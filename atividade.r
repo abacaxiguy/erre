@@ -4,8 +4,6 @@ enem <- read.csv("./data/ENEM-AL-2019.csv", header = TRUE, dec = ".")
 
 maceio <- subset(enem, enem$NO_MUNICIPIO_RESIDENCIA == "Maceió")
 
-par(mfrow = c(1, 2))
-
 a_cn <- c(maceio$NU_NOTA_CN)
 a_ch <- c(maceio$NU_NOTA_CH)
 a_lc <- c(maceio$NU_NOTA_LC)
@@ -16,7 +14,14 @@ a_geral <- c(maceio$NU_NOTA_ENEM)
 boxplot(a_cn, a_ch, a_lc, a_mt, a_red, a_geral,
         main = "Notas do ENEM - Maceió",
         names = c("CN", "CH", "LC", "MT", "RED", "GERAL"),
-        col = c("red", "yellow", "blue", "green", "purple", "cyan")
+        col = c(
+                "#ADD8E6",
+                "#87CEFA",
+                "#00BFFF",
+                "#1E90FF",
+                "#6495ED",
+                "#4682B4"
+        )
 )
 
 
@@ -48,7 +53,7 @@ freq_rel <- round(freq_rel * 100, 2)
 freq_rel_acum <- round(freq_rel_acum * 100, 2)
 
 tabela <- cbind(freq, freq_acum, freq_rel, freq_rel_acum)
-print(tabela)
+# print(tabela)
 
 hist(nota_enem,
         breaks = c(297, 461, 515, 583, 800), labels = classes,
@@ -56,7 +61,7 @@ hist(nota_enem,
         main = "Notas do ENEM - Arapiraca",
         xlab = "Notas",
         ylab = "Frequência",
-        col = c("#74f71c", "#fffb00", "#ff7c02", "#f80f0f"),
+        col = c("#faddc3", "#ffba6c", "#FFA500", "#FF8C00")
 )
 
 # Análise:
@@ -64,3 +69,36 @@ hist(nota_enem,
 
 # 1º c)
 
+marechal <- subset(enem, enem$NO_MUNICIPIO_RESIDENCIA == "Marechal Deodoro")
+
+cor_raca <- marechal$TP_COR_RACA
+escolaridade <- marechal$TP_ESCOLA
+
+dados <- with(marechal, table(cor_raca, escolaridade))
+
+nomes_cor_raca <- c(
+        "Não consta",
+        "Branca",
+        "Preta",
+        "Parda",
+        "Amarela",
+        "Indígena"
+)
+
+nomes_escolaridade <- c("Pública", "Privada")
+
+barplot(t(dados),
+        main = "Escolaridade por cor/raça - Marechal Deodoro",
+        xlab = "Cor/Raça",
+        ylab = "Escolaridade",
+        ylim = c(0, 100),
+        col = c("#ec82b7", "#FFDAB9"),
+        legend = nomes_escolaridade,
+        names = nomes_cor_raca,
+        beside = TRUE
+)
+
+# Análise:
+# A partir do gráfico, é possível perceber que a maior parte dos alunos de Marechal Deodoro são pardos e que a maior parte são de escola pública.
+
+# 1º d)
