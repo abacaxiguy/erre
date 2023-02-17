@@ -69,12 +69,12 @@ hist(nota_enem,
 
 # 1º c)
 
-marechal <- subset(enem, enem$NO_MUNICIPIO_RESIDENCIA == "Marechal Deodoro")
+rio_largo <- subset(enem, enem$NO_MUNICIPIO_RESIDENCIA == "Rio Largo")
 
-cor_raca <- marechal$TP_COR_RACA
-escolaridade <- marechal$TP_ESCOLA
+cor_raca <- rio_largo$TP_COR_RACA
+escolaridade <- rio_largo$TP_ESCOLA
 
-dados <- with(marechal, table(cor_raca, escolaridade))
+dados <- with(rio_largo, table(cor_raca, escolaridade))
 
 nomes_cor_raca <- c(
         "Não consta",
@@ -88,7 +88,7 @@ nomes_cor_raca <- c(
 nomes_escolaridade <- c("Pública", "Privada")
 
 barplot(t(dados),
-        main = "Escolaridade por cor/raça - Marechal Deodoro",
+        main = "Escolaridade por cor/raça - Rio Largo",
         xlab = "Cor/Raça",
         ylab = "Escolaridade",
         ylim = c(0, 100),
@@ -99,6 +99,27 @@ barplot(t(dados),
 )
 
 # Análise:
-# A partir do gráfico, é possível perceber que a maior parte dos alunos de Marechal Deodoro são pardos e que a maior parte são de escola pública.
+# A partir do gráfico, é possível perceber que a maior parte dos alunos de Rio Largo são pardos e que a maior parte são de escola pública.
 
 # 1º d)
+
+palmeira <- subset(enem, enem$NO_MUNICIPIO_RESIDENCIA == "Palmeira dos Índios")
+
+nota_redacao <- palmeira$NU_NOTA_REDACAO
+sexo <- palmeira$TP_SEXO
+
+nomes_sexo <- c("Feminino", "Masculino")
+
+pie(table(sexo),
+        main = "Sexo dos alunos - Palmeira dos Índios",
+        col = c("#FFDAB9", "#ec82b7"),
+        labels = nomes_sexo
+)
+
+barplot(table(nota_redacao),
+        main = "Notas de redação - Palmeira dos Índios",
+        xlab = "Notas",
+        ylab = "Frequência",
+        col = c("#FFDAB9", "#ec82b7"),
+        ylim = c(0, 100)
+)
