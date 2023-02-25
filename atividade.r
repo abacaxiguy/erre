@@ -188,7 +188,7 @@ nota_red.cut <- cut(nota_red, breaks = 4)
 table(nota_geral.cut, nota_red.cut)
 
 # calcula o coeficiente de correlação
-print(cor(nota_geral, nota_red))
+cor(nota_geral, nota_red)
 # 0.863, ou seja, há uma correlação positiva forte
 
 # cria um gráfico de dispersão com as notas e as idades
@@ -216,14 +216,13 @@ maceio <- subset(enem, enem$NO_MUNICIPIO_RESIDENCIA == "Maceió")
 nota_geral <- maceio$NU_NOTA_ENEM
 lingua_estrangeira <- maceio$TP_LINGUA
 
-print(table(lingua_estrangeira))
+table(lingua_estrangeira)
 
 # agrupa as notas em 4 grupos
 nota_geral.cut <- cut(nota_geral, breaks = 4)
-print(nota_geral.cut)
 
 # cria uma tabela de frequência cruzada
-print(table(nota_geral.cut, lingua_estrangeira))
+table(nota_geral.cut, lingua_estrangeira)
 
 # cria um gráfico de barras com os dados da tabela
 barplot(table(nota_geral.cut, lingua_estrangeira),
@@ -244,4 +243,31 @@ barplot(table(nota_geral.cut, lingua_estrangeira),
 # uma língua mais utilizada no mundo, e por isso, é mais fácil para os alunos
 # aprenderem. Além do motivo de que o espanhol, apesar de se parecer com o
 # português, é uma língua muito diferente e com diversos falso cognatos.
+
+# Verifique se existe alguma correlação entre variáveis quantitativas, como por
+# exemplo, notas de Redação e Matemática, ou Redação com Média final obtida.
+
+nota_mat <- maceio$NU_NOTA_MT
+nota_red <- maceio$NU_NOTA_REDACAO
+
+nota_mat.cut <- cut(nota_mat, breaks = 4)
+nota_red.cut <- cut(nota_red, breaks = 4)
+
+# cria uma tabela de frequência cruzada
+print(table(nota_mat.cut, nota_red.cut))
+
+# calcula o coeficiente de correlação
+print(cor(nota_mat, nota_red))
+# 0.545, ou seja, há uma correlação positiva moderada
+
+# Análise:
+# A partir do coeficiente de correlação, é possível perceber que há uma correlação
+# positiva moderada entre as notas de matemática e de redação. A correlação acaba
+# não sendo mais forte por conta do fato de que a nota de redação e a nota de
+# matemática não são diretamente relacionadas. As duas notas são consideradas
+# as mais fáceis de conseguir uma boa nota, e por isso, alguns podem focar
+# mais em uma e deixar a outra de lado.
+# Como pode ser visto na tabela de frequência cruzada, a nota de redação é maior
+# que a nota de matemática em todos os grupos, e a maioria dos alunos se encontram
+# no grupo de notas onde, em redação, a nota é maior que a nota de matemática.
 
