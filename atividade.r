@@ -173,10 +173,6 @@ barplot(dados,
 
 # 1º e)
 
-# escolher duas variaveis quantitativas, calcular o coeficiente de correlação
-# gerar um gráfico de dispersão, agrupar usando os quartis e interpretar
-# o resultado
-
 # filtra os dados de maceio e armazena na variável maceio
 maceio <- subset(enem, enem$NO_MUNICIPIO_RESIDENCIA == "Maceió")
 
@@ -186,10 +182,14 @@ nota_red <- maceio$NU_NOTA_REDACAO
 
 # agrupa as notas em 4 grupos
 nota_geral.cut <- cut(nota_geral, breaks = 4)
+nota_red.cut <- cut(nota_red, breaks = 4)
+
+# cria uma tabela de frequência cruzada
+table(nota_geral.cut, nota_red.cut)
 
 # calcula o coeficiente de correlação
-print(cor(nota_geral, nota_red, method = "kendall"))
-# 0.713
+print(cor(nota_geral, nota_red))
+# 0.863, ou seja, há uma correlação positiva forte
 
 # cria um gráfico de dispersão com as notas e as idades
 plot(nota_red, nota_geral,
@@ -204,4 +204,44 @@ plot(nota_red, nota_geral,
 # A partir do gráfico, é possível perceber que a nota geral e a nota de redação são
 # positivamente correlacionadas, ou seja, quanto maior a nota geral, maior a nota de redação.
 
-# 2º a)
+# 2º
+
+# Agrupar variáveis a sua escolha, como por exemplo notas e idade, ou notas e
+# números de computadores, ou notas por estado civil ou por sexo, gere os
+# gráficos que achar adequados e faça uma síntese dos resultados obtidos.
+
+maceio <- subset(enem, enem$NO_MUNICIPIO_RESIDENCIA == "Maceió")
+
+# escolhendo as variáveis: nota geral e língua estrangeira
+nota_geral <- maceio$NU_NOTA_ENEM
+lingua_estrangeira <- maceio$TP_LINGUA
+
+print(table(lingua_estrangeira))
+
+# agrupa as notas em 4 grupos
+nota_geral.cut <- cut(nota_geral, breaks = 4)
+print(nota_geral.cut)
+
+# cria uma tabela de frequência cruzada
+print(table(nota_geral.cut, lingua_estrangeira))
+
+# cria um gráfico de barras com os dados da tabela
+barplot(table(nota_geral.cut, lingua_estrangeira),
+    main = "Notas de redação por nota geral - Maceió",
+    ylab = "Frequência das notas",
+    xlab = "Nota geral",
+    ylim = c(0, 1400),
+    col = c("#cccccc", "#22577a", "#38a3a5", "#57cc99"),
+    names = c("Inglês", "Espanhol"),
+    legend = c("(0, 321]", "(321, 476]", "(476, 632]", "(632, 787]"),
+    beside = TRUE
+)
+
+# Análise:
+# Apesar do número de alunos que escolheram a língua estrangeira inglesa ser
+# maior, a nota geral média dos alunos que escolheram o inglês é maior por
+# uma grande margem. Isso pode ser explicado pelo fato de que o inglês é
+# uma língua mais utilizada no mundo, e por isso, é mais fácil para os alunos
+# aprenderem. Além do motivo de que o espanhol, apesar de se parecer com o
+# português, é uma língua muito diferente e com diversos falso cognatos.
+
