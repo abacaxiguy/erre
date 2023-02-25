@@ -321,8 +321,7 @@ classes <- c(
 )
 
 # cria uma tabela de frequência cruzada
-print(table(nota_geral.cut, computadores))
-print(table(computadores))
+table(nota_geral.cut, computadores)
 
 # cria um gráfico de barras com os dados da tabela
 barplot(table(nota_geral.cut, computadores),
